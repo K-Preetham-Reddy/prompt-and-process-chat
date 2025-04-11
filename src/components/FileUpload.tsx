@@ -35,15 +35,17 @@ const FileUpload = () => {
   };
 
   const handleFileSelect = (selectedFile: File) => {
-    // Only accept text files for now (in a real app you'd use a parser library)
+    // Accept text and PDF files
     if (selectedFile.type === "text/plain" || 
+        selectedFile.type === "application/pdf" ||
         selectedFile.name.endsWith('.txt') ||
-        selectedFile.name.endsWith('.md')) {
+        selectedFile.name.endsWith('.md') ||
+        selectedFile.name.endsWith('.pdf')) {
       setFile(selectedFile);
     } else {
       toast({
         title: "Invalid file type",
-        description: "Please upload a text file",
+        description: "Please upload a text or PDF file",
         variant: "destructive"
       });
     }
@@ -122,7 +124,7 @@ const FileUpload = () => {
               Browse Files
             </Button>
             <p className="text-xs text-gray-400 mt-4">
-              Supports .txt and .md files
+              Supports .txt, .md, and .pdf files
             </p>
           </div>
         )}
@@ -131,7 +133,7 @@ const FileUpload = () => {
           ref={fileInputRef}
           onChange={handleFileChange}
           className="hidden"
-          accept=".txt,.md,text/plain"
+          accept=".txt,.md,.pdf,text/plain,application/pdf"
         />
       </div>
 
